@@ -1,0 +1,36 @@
+---
+- name: Set up cluster-wide configuration.
+  hosts: cluster
+  gather_facts: false
+  become: true
+
+  handlers:
+    - name: reboot-pi
+      reboot:
+
+  vars_files:
+    - config.yml
+
+  tasks: []
+
+
+- name: Configure the control plane (node 1).
+  hosts: control_plane
+  gather_facts: false
+  become: true
+
+  vars_files:
+    - config.yml
+
+  tasks: []
+
+
+- name: Configure the nodes (nodes 2-6).
+  hosts: nodes
+  gather_facts: false
+  become: true
+
+  vars_files:
+    - config.yml
+
+  tasks: []
