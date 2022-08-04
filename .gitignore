@@ -1,4 +1,5 @@
 hosts.ini
 config.yml
 ansible_collections
+files/ceph.pub
 roles/geerlingguy.*
