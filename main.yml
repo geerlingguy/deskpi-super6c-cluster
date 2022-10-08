@@ -34,18 +34,18 @@
       ansible.builtin.package:
         name:
           - podman
-          - catatonit #it crashes without this one
+          - catatonit   # it crashes without this one
           - lvm2
           - cephadm
         state: present
-        
+
     - name: Check if a ceph is bootstraped
       register: bootstraped
       stat: path=/etc/ceph/ceph.conf get_md5=no
 
     - name: Create the ceph cluster.
-      shell: "cephadm bootstrap --mon-ip {{ ansible_host }}" # inventory ex: pi001 ansible_host=192.168.1.101
-      when: bootstraped.stat.exists == False 
+      shell: "cephadm bootstrap --mon-ip {{ ansible_host }}"  # inventory ex: pi001 ansible_host=192.168.1.101
+      when: bootstraped.stat.exists == False
 
     - name: Retrieve the ceph pubkey.
       ansible.builtin.fetch:
@@ -54,7 +54,7 @@
         flat: yes
 
     # Maybe we should merge this one with the L33
-    - name: Ensure NFS dependencies are installed. 
+    - name: Ensure NFS dependencies are installed.
       ansible.builtin.package:
         name:
           - libcephfs2
