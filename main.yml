@@ -24,15 +24,28 @@
 
   tasks:
     # See: https://forums.raspberrypi.com/viewtopic.php?t=274486
-    - name: Set up the Debian unstable repo (TODO).
-      meta: noop
+    - name: Set up the Debian unstable repo.
+      ansible.builtin.apt_repository:
+        repo: deb http://deb.debian.org/debian unstable main contrib non-free
+        state: present
 
     # See: https://ceph.com/en/news/blog/2022/install-ceph-in-a-raspberrypi-4-cluster/
-    - name: Install cephadm (TODO).
-      meta: noop
+    - name: Install cephadm (and other pacages).
+      ansible.builtin.package:
+        name:
+          - podman
+          - catatonit #it crashes without this one
+          - lvm2
+          - cephadm
+        state: present
+        
+    - name: Check if a ceph is bootstraped
+      register: bootstraped
+      stat: path=/etc/ceph/ceph.conf get_md5=no
 
-    - name: Create the ceph cluster (TODO).
-      meta: noop
+    - name: Create the ceph cluster.
+      shell: "cephadm bootstrap --mon-ip {{ ansible_host }}" # inventory ex: pi001 ansible_host=192.168.1.101
+      when: bootstraped.stat.exists == False 
 
     - name: Retrieve the ceph pubkey.
       ansible.builtin.fetch:
@@ -40,7 +53,8 @@
         dest: files/ceph.pub
         flat: yes
 
-    - name: Ensure NFS dependencies are installed.
+    # Maybe we should merge this one with the L33
+    - name: Ensure NFS dependencies are installed. 
       ansible.builtin.package:
         name:
           - libcephfs2
@@ -61,6 +75,7 @@
       ansible.builtin.package:
         name:
           - podman
+          - catatonit
           - lvm2
         state: present
 
