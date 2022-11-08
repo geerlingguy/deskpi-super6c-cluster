@@ -88,7 +88,7 @@
         - ../ATLAS/configure
         - make
 
-    - name: Create 'COMPILE_MPI_COMPLETE' file.
+    - name: Create 'COMPILE_ATLAS_COMPLETE' file.
       file:
         path: "{{ hpl_root }}/tmp/COMPILE_ATLAS_COMPLETE"
         state: touch
@@ -120,7 +120,7 @@
         chdir: "{{ hpl_root }}/tmp/hpl-2.3"
         creates: "{{ hpl_root }}/tmp/COMPILE_HPL_COMPLETE"
 
-    - name: Create 'build complete' file.
+    - name: Create COMPILE_HPL_COMPLETE file.
       ansible.builtin.file:
         path: "{{ hpl_root }}/tmp/COMPILE_HPL_COMPLETE"
         state: touch
