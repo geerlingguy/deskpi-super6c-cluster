@@ -4,6 +4,12 @@ A common generic benchmark for clusters is Linpack, or HPL (High Performance Lin
 
 I wanted to see where my various Pi clusters would rank, historically, so I built this playbook which installs all the necessary tooling for HPL to run, connects all the nodes together via SSH, then runs the benchmark and outputs the result.
 
+## Why not PTS?
+
+Phoronix Test Suite includes [HPL Linpack](https://openbenchmarking.org/test/pts/hpl) and [HPCC](https://openbenchmarking.org/test/pts/hpcc) test suites. I may see how they compare in the future.
+
+When I initially started down this journey, the PTS versions didn't play nicely with the Pi, especially when clustered.
+
 ## Usage
 
 Make sure you have Ansible installed, and make sure you've at _least_ run the `networking.yml` playbook in the main directory. Then run the benchmarking playbook inside this directory:
@@ -35,7 +41,7 @@ First, create a `hosts.ini` file in this directory with the following contents:
 Second, _don't_ run the entire playbook. Run the playbook with the following tags so SSH inter-node configuration is not set:
 
 ```
-ansible-playbook main.yml --tags "setup,benchmark" --skip-tags "cpu_scaling"
+ansible-playbook main.yml --tags "setup,benchmark"
 ```
 
 > When testing, I run the playbook inside an Ubuntu docker container:
