@@ -25,7 +25,7 @@ cd ~/tmp/hpl-2.3/bin/rpi
 mpirun -f cluster-hosts ./xhpl
 ```
 
-> The configuration here is optimized for a 4-node Pi CM4 cluster with 8 GB of RAM on each module. Some settings like those in the `HPL.dat` file may need changes for different cluster layouts!
+> The configuration here was tested on smaller 1, 4, and 6-node clusters with 6-64 GB of RAM. Some settings in the `config.yml` file that affect the generated `HPL.dat` file may need diffent tuning for different cluster layouts!
 
 ### Single Node Usage
 

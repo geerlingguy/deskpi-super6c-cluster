@@ -9,8 +9,7 @@
   become: false
   tags: ['setup']
 
-  vars:
-    hpl_root: /home/pi
+  vars_files: ['config.yml']
 
   tasks:
     - name: Update apt cache.
@@ -114,8 +113,8 @@
         creates: "{{ hpl_root }}/tmp/COMPILE_HPL_COMPLETE"
 
     - name: Copy rpi makefile into place.
-      ansible.builtin.copy:
-        src: files/benchmark-Make.rpi
+      ansible.builtin.template:
+        src: templates/benchmark-Make.rpi.j2
         dest: "{{ hpl_root }}/tmp/hpl-2.3/Make.rpi"
         mode: 0644
 
@@ -137,9 +136,9 @@
   become: false
   tags: ['ssh']
 
+  vars_files: ['config.yml']
   vars:
     host_ips: []
-    clustered: false
 
   tasks:
     - name: Generate an OpenSSH keypair.
@@ -179,6 +178,8 @@
   become: false
   tags: ['benchmark']
 
+  vars_files: ['config.yml']
+
   tasks:
     - name: Create a file describing nodes for MPI execution.
       ansible.builtin.template:
@@ -186,7 +187,7 @@
         dest: "{{ hpl_root }}/tmp/hpl-2.3/bin/rpi/cluster-hosts"
         mode: 0644
 
-    # Generate the template using this website:
+    # Template originally generated using this website:
     # https://www.advancedclustering.com/act_kb/tune-hpl-dat-file/
     - name: Create HPL.dat file.
       ansible.builtin.template:
