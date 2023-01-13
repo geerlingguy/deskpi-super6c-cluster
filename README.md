@@ -1,5 +1,7 @@
 # DeskPi Super6c 6-node Pi Cluster
 
+> **DEPRECATED**: Please see my [pi-cluster](https://github.com/geerlingguy/pi-cluster) project for active development, specifically the `ceph` directory in that project.
+
 [![CI](https://github.com/geerlingguy/deskpi-super6c-cluster/workflows/CI/badge.svg?branch=master&event=push)](https://github.com/geerlingguy/deskpi-super6c-cluster/actions?query=workflow%3ACI)
 
 This repository contains examples and automation used in DeskPi Super6c-related videos on [Jeff Geerling's YouTube channel](https://www.youtube.com/c/JeffGeerling).
