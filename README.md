@@ -51,7 +51,32 @@ Run the playbook:
 ansible-playbook main.yml
 ```
 
-TODO.
+SSH into your control_plane node 
+
+```
+ssh pi@deskpi1.local
+```
+
+Open `cepham` shell
+
+```
+sudo cepham shell
+```
+
+Create a file with a password for the admin user
+
+```
+echo "mysupersecurepassword" > password.txt
+```
+
+Set the new password to the admin user and then delete the file
+
+```
+ceph dashboard ac-user-set-password admin -i password.txt && rm password.txt
+```
+
+Now you can login into https://deskpi1.local:8443 using `admin` and the password you just set and then follow up with this [Install Ceph in a Raspberry Pi 4 Cluster -> Expanding the Cluster With the Dashboard](https://ceph.io/en/news/blog/2022/install-ceph-in-a-raspberrypi-4-cluster/#expanding-the-cluster-with-the-dashboard)
+
 
 ### Upgrading the cluster
 
